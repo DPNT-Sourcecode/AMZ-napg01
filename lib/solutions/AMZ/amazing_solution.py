@@ -39,11 +39,3 @@ class AmazingSolution:
 
             maze = [line for line in stdout_r if line.rstrip()]
             return "".join(maze)
-
-
-
-
-
-
-
-

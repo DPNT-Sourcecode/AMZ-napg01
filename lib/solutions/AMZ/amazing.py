@@ -153,8 +153,10 @@ class Main:
                     label = 165
                     scalarQ = 0
                     scalarZ = 0
-                    scalarX = self.options.get("ENTRY_COLUMN") \
-                        or self.round_down_to_int(self.random(1)*scalarH+1)
+                    scalarX = \
+                        int(self.options["ENTRY_COLUMN"]) \
+                            if self.options.get("ENTRY_COLUMN") \
+                            else self.round_down_to_int(self.random(1)*scalarH+1)
                 
                 #165FORI=1TOH
                 case 165:
@@ -966,6 +968,3 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
-
-
-
