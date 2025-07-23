@@ -1,23 +1,18 @@
+import io
 from pathlib import Path
-import subprocess
+import sys
+import threading
+
+import solutions.AMZ.amazing
 
 
 class AmazingSolution:
-    def __init__(self, app = Path("./amazing.py")):
-        dir = Path(__file__).parent.absolute()
-        self.app = dir / app
-
     def amazing_maze(self, rows, columns, maze_generation_options):
-        with subprocess.Popen(
-            self.app,
-            stdin = subprocess.PIPE,
-            stdout = subprocess.PIPE,
-            encoding = "utf8",
-        ) as process:
-            stdin = process.stdin
-            stdout = process.stdout
-            if not stdin or not stdout:
-                raise Exception("Could not open STDIN or STDOUT.")
+        stdin = io.StringIO()
+        stdout = io.StringIO()
+        with replace_std(stdin, stdout):
+            thread = threading.Thread(target = amazing.Main().run)
+            thread.start()
 
             for line in stdout:
                 line = line.rstrip()
@@ -32,6 +27,29 @@ class AmazingSolution:
                     case prompt:
                         raise Exception(f"Unknown prompt: {prompt}")
 
+            thread.join()
+
             maze = [line for line in stdout if line.rstrip()]
             return "".join(maze)
+
+
+def replace_std(stdin, stdout):
+    return ReplaceStd(stdin, stdout)
+
+
+class ReplaceStd:
+    def __init__(self, stdin, stdout):
+        self.stdin = stdin
+        self.stdout = stdout
+
+    def __enter__(self):
+        self._old_stdin = sys.stdin
+        self._old_stdout = sys.stdout
+        sys.stdin = self.stdin
+        sys.stdout = self.stdout
+
+    def __exit__(self, _, _, _):
+        sys.stdin = self._old_stdin
+        sys.stdout = self._old_stdout
+
 
