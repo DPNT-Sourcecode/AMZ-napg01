@@ -1,4 +1,3 @@
-import itertools
 import os
 import threading
 
@@ -7,8 +6,6 @@ import solutions.AMZ.amazing as amazing
 
 class AmazingSolution:
     def amazing_maze(self, rows, columns, maze_generation_options):
-        debug = open("debug.txt", "w")
-
         stdin_r_fd, stdin_w_fd = os.pipe()
         stdout_r_fd, stdout_w_fd = os.pipe()
         with \
@@ -25,8 +22,6 @@ class AmazingSolution:
                 raise Exception("App crashed.")
 
             for line in stdout_r:
-                print(line, file=debug)
-                debug.flush()
                 line = line.rstrip()
                 if not line or line.startswith(" "):
                     continue
@@ -39,35 +34,12 @@ class AmazingSolution:
                     case prompt:
                         raise Exception(f"Unknown prompt: {prompt}")
 
-            maze = list(
-                    itertools.takewhile(
-                    lambda x: x,
-                    itertools.dropwhile(
-                        lambda x: not x,
-                        (line for line in stdout_r if line.rstrip()))))
-
             thread.join()
+            stdout_w.close()
+
+            maze = [line for line in stdout_r if line.rstrip()]
             return "".join(maze)
 
-
-# def replace_std(stdin, stdout):
-#     return ReplaceStd(stdin, stdout)
-
-
-# class ReplaceStd(contextlib.AbstractContextManager):
-#     def __init__(self, stdin, stdout):
-#         self.stdin = stdin
-#         self.stdout = stdout
-
-#     def __enter__(self):
-#         self._old_stdin = sys.stdin
-#         self._old_stdout = sys.stdout
-#         sys.stdin = self.stdin
-#         sys.stdout = self.stdout
-
-#     def __exit__(self, _exc_type, _exc_value, _traceback):
-#         sys.stdin = self._old_stdin
-#         sys.stdout = self._old_stdout
 
 
 
