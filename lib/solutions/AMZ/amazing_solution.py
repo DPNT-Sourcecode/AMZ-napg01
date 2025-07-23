@@ -10,14 +10,17 @@ class AmazingSolution:
 
         stdin_r, stdin_w = os.pipe()
         stdout_r, stdout_w = os.pipe()
-        app = amazing.Main(stdin = stdin_r, stdout = stdout_w)
-        thread = threading.Thread(target = app.run)
-        thread.start()
+        with \
+            os.fdopen(stdin_r, "r") as stdin_r, \
+            os.fdopen(stdout_r, "r") as stdout_r, \
+            os.fdopen(stdin_w, "w") as stdin_w, \
+            os.fdopen(stdout_w, "r") as stdout_w:
 
-        print("hello", file=debug)
-        debug.flush()
-        with open(stdin_w, "w") as stdin, open(stdout_r, "r") as stdout:
-            for line in stdout:
+            app = amazing.Main(stdin = stdin_r, stdout = stdout_w)
+            thread = threading.Thread(target = app.run)
+            thread.start()
+
+            for line in stdout_r:
                 print(line, file=debug)
                 debug.flush()
                 line = line.rstrip()
@@ -25,14 +28,14 @@ class AmazingSolution:
                     continue
                 match line:
                     case "WHAT ARE YOUR WIDTH AND LENGTH":
-                        stdin.write(f"{columns}\n")
-                        stdin.write(f"{rows}\n")
-                        stdin.close()
+                        stdin_w.write(f"{columns}\n")
+                        stdin_w.write(f"{rows}\n")
+                        stdin_w.close()
                         break
                     case prompt:
                         raise Exception(f"Unknown prompt: {prompt}")
 
-            maze = [line for line in stdout if line.rstrip()]
+            maze = [line for line in stdout_r if line.rstrip()]
 
             thread.join()
             return "".join(maze)
@@ -56,5 +59,6 @@ class AmazingSolution:
 #     def __exit__(self, _exc_type, _exc_value, _traceback):
 #         sys.stdin = self._old_stdin
 #         sys.stdout = self._old_stdout
+
 
 
