@@ -8,13 +8,13 @@ class AmazingSolution:
     def amazing_maze(self, rows, columns, maze_generation_options):
         debug = open("debug.txt", "w")
 
-        stdin_r, stdin_w = os.pipe()
-        stdout_r, stdout_w = os.pipe()
+        stdin_r_fd, stdin_w_fd = os.pipe()
+        stdout_r_fd, stdout_w_fd = os.pipe()
         with \
-            os.fdopen(stdin_r, "r") as stdin_r, \
-            os.fdopen(stdout_r, "r") as stdout_r, \
-            os.fdopen(stdin_w, "w") as stdin_w, \
-            os.fdopen(stdout_w, "r") as stdout_w:
+            os.fdopen(stdin_r_fd, "r") as stdin_r, \
+            os.fdopen(stdout_r_fd, "r") as stdout_r, \
+            os.fdopen(stdin_w_fd, "w") as stdin_w, \
+            os.fdopen(stdout_w_fd, "w") as stdout_w:
 
             app = amazing.Main(stdin = stdin_r, stdout = stdout_w)
             thread = threading.Thread(target = app.run)
@@ -59,6 +59,7 @@ class AmazingSolution:
 #     def __exit__(self, _exc_type, _exc_value, _traceback):
 #         sys.stdin = self._old_stdin
 #         sys.stdout = self._old_stdout
+
 
 
 
