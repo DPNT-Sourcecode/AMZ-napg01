@@ -1,5 +1,6 @@
 import contextlib
 import io
+import os
 from pathlib import Path
 import sys
 import threading
@@ -9,28 +10,29 @@ import solutions.AMZ.amazing as amazing
 
 class AmazingSolution:
     def amazing_maze(self, rows, columns, maze_generation_options):
-        stdin = io.StringIO()
-        stdout = io.StringIO()
-        with replace_std(stdin, stdout):
+        stdin_r, stdin_w = os.pipe()
+        stdout_r, stdout_w = os.pipe()
+        with replace_std(stdin_r, stdout_w):
             thread = threading.Thread(target = amazing.Main().run)
             thread.start()
 
-            for line in stdout:
-                line = line.rstrip()
-                if not line or line.startswith(' '):
-                    continue
-                match line:
-                    case "WHAT ARE YOUR WIDTH AND LENGTH":
-                        stdin.write(f"{columns}\n")
-                        stdin.write(f"{rows}\n")
-                        stdin.seek(0)
-                        break
-                    case prompt:
-                        raise Exception(f"Unknown prompt: {prompt}")
-
-            thread.join()
+            with open(stdin_w, 'w') as stdin:
+                with open(stdout_r, 'r') as stdout:
+                    for line in stdout:
+                        line = line.rstrip()
+                        if not line or line.startswith(' '):
+                            continue
+                        match line:
+                            case "WHAT ARE YOUR WIDTH AND LENGTH":
+                                stdin.write(f"{columns}\n")
+                                stdin.write(f"{rows}\n")
+                                stdin.close()
+                                break
+                            case prompt:
+                                raise Exception(f"Unknown prompt: {prompt}")
 
             maze = [line for line in stdout if line.rstrip()]
+            thread.join()
             return "".join(maze)
 
 
@@ -52,6 +54,7 @@ class ReplaceStd(contextlib.AbstractContextManager):
     def __exit__(self, _exc_type, _exc_value, _traceback):
         sys.stdin = self._old_stdin
         sys.stdout = self._old_stdout
+
 
 
 
