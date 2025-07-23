@@ -841,7 +841,7 @@ class Main:
                 case 1013:
                     # label = 1014  # this did nothing
                     label = 1015
-                    matrixV[self.as_int(scalarX)][self.as_int(scalarV)] = 3
+                    matrixV[self.as_int(scalarX)][self.as_int(scalarV)] = 0
                     break
 
                 #1014V(X,V)=1
@@ -982,9 +982,3 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
-
-
-
-
-
-
