@@ -1,24 +1,24 @@
 #!/usr/bin/env python3
-import sys
 
 import math
+import sys
 
 class Main:
-    def __init__(self):
+    def __init__(self, stdin = sys.stdin, stdout = sys.stdout):
+        self.stdin = stdin
+        self.stdout = stdout
         self.current_line_char_count = 0
-        print(sys.stdin)
-        print(sys.stdout)
 
     def print_expr(self, expression):
         if isinstance(expression, (int, float)):
             text = f"{expression:.2f}".rstrip('0').rstrip('.')
         else:
             text = expression
-        print(text, end='')
+        print(text, end='', file=self.stdout)
         self.current_line_char_count += len(text)
 
     def println(self):
-        print()
+        print(file=self.stdout)
         self.current_line_char_count = 0
 
     def tab(self, num_spaces):
@@ -103,8 +103,8 @@ class Main:
                     label = 102
                     self.print_expr("WHAT ARE YOUR WIDTH AND LENGTH")
                     self.println()
-                    scalarH = float(input())
-                    scalarV = float(input())
+                    scalarH = float(self.stdin.readline())
+                    scalarV = float(self.stdin.readline())
                 
                 #102IFH<>1ANDV<>1THEN110
                 case 102:
@@ -962,3 +962,4 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
