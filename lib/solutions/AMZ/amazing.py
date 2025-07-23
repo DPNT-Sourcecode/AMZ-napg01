@@ -4,7 +4,8 @@ import math
 import sys
 
 class Main:
-    def __init__(self, stdin = sys.stdin, stdout = sys.stdout):
+    def __init__(self, options = {}, stdin = sys.stdin, stdout = sys.stdout):
+        self.options = options
         self.stdin = stdin
         self.stdout = stdout
         self.current_line_char_count = 0
@@ -152,7 +153,8 @@ class Main:
                     label = 165
                     scalarQ = 0
                     scalarZ = 0
-                    scalarX = self.round_down_to_int(self.random(1)*scalarH+1)
+                    scalarX = self.options.get("ENTRY_COLUMN") \
+                        or self.round_down_to_int(self.random(1)*scalarH+1)
                 
                 #165FORI=1TOH
                 case 165:
@@ -964,5 +966,6 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
 
 

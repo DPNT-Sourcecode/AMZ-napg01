@@ -14,7 +14,7 @@ class AmazingSolution:
             os.fdopen(stdin_w_fd, "w") as stdin_w, \
             os.fdopen(stdout_w_fd, "w") as stdout_w:
 
-            app = amazing.Main(stdin = stdin_r, stdout = stdout_w)
+            app = amazing.Main(options = maze_generation_options, stdin = stdin_r, stdout = stdout_w)
             thread = threading.Thread(target = app.run)
             thread.start()
             thread.join(timeout=0.1)  # fail fast if it crashes
@@ -39,6 +39,7 @@ class AmazingSolution:
 
             maze = [line for line in stdout_r if line.rstrip()]
             return "".join(maze)
+
 
 
 
