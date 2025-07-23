@@ -811,13 +811,11 @@ class Main:
                 case 980:
                     # label = 1000  # this did nothing
                     label = 250
-                    match self.options.get("DEAD_END_ON_LAST_ROW_BEHAVIOUR", "CREATE_EXIT"):
-                        case "CREATE_TREASURE":
-                            treasure = (self.as_int(scalarR), self.as_int(scalarS))
-                            print(treasure, file=sys.stderr)
-                        case "CREATE_EXIT":
-                            matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 1
-                            scalarZ = 1
+                    if self.as_int(scalarS) == scalarV and self.options.get("DEAD_END_ON_LAST_ROW_BEHAVIOUR") == "CREATE_TREASURE":
+                        treasure = (self.as_int(scalarR), self.as_int(scalarS))
+                    else:
+                        matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 1
+                        scalarZ = 1
                     scalarQ = 0
                     scalarR = 1
                     scalarS = 1
@@ -989,3 +987,4 @@ class Main:
 
 if __name__ == "__main__":
     Main(options = os.environ).run()
+
