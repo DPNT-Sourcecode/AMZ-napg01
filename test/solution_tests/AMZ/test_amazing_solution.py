@@ -1,6 +1,29 @@
-from solutions.SUM.sum_solution import SumSolution
+from solutions.AMZ.amazing_solution import AmazingSolution
 
 
 class TestSum():
-    def test_sum(self):
-        assert SumSolution().compute(1, 2) == 3
+    def test_io(self):
+        solution = AmazingSolution()
+        generated_maze = solution.amazing_maze(4, 3, {})
+        assert generated_maze == """
+.--.--.--.--.  .--.--.--.--.
+I     I     I              I
+:  :  :  :  :  :  :--:--:--.
+I  I  I  I  I  I           I
+:  :  :  :  :  :--:  :--:  .
+I  I  I  I  I     I     I  I
+:  :  :  :  :--:  :--:--:  .
+I  I  I  I     I        I  I
+:  :  :  :--:  :--:--:  :  .
+I  I  I     I  I     I  I  I
+:  :  :--:  :  :  :  :  :  .
+I  I     I  I  I  I  I  I  I
+:  :--:  :  :  :  :  :  :  .
+I  I  I  I  I  I  I  I  I  I
+:  :  :  :  :  :  :  :  :  .
+I  I  I  I  I  I  I  I  I  I
+:  :  :  :  :  :  :  :  :  .
+I     I     I     I     I  I
+:--:--:--:--:--:--:--:--:  .
+""".lstrip()
+
