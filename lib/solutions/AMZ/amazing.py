@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import math
+import os
 import sys
 
 class Main:
@@ -803,7 +804,7 @@ class Main:
                 case 975:
                     # label = 980  # this did nothing
                     label = 1000
-                    matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 3
+                    # matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 3
                     scalarQ = 0
 
                 #980V(R,S)=1:Q=0:R=1:S=1:GOTO250
@@ -985,7 +986,8 @@ class Main:
                     raise ValueError(f"The label {label} is not recognized.")
 
 if __name__ == "__main__":
-    Main().run()
+    Main(options = os.environ).run()
+
 
 
 
