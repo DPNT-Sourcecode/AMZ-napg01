@@ -953,9 +953,9 @@ class Main:
 
                 #1070NEXTI
                 case 1070:
-                    label = 1071
-                    scalarI = scalarI + 1
+                    # label = 1071  # this did nothing
                     label = 1043
+                    scalarI = scalarI + 1
 
                 #1071PRINT"."
                 case 1071:
@@ -965,13 +965,12 @@ class Main:
 
                 #1072NEXTJ
                 case 1072:
-                    label = 1073
-                    scalarJ = scalarJ + 1
+                    # label = 1073  # this did nothing
                     label = 1015
+                    scalarJ = scalarJ + 1
 
                 #1073END
                 case 1073:
-                    label = 9999
                     label = 9999
 
                 case 9999:
@@ -982,4 +981,5 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
 
