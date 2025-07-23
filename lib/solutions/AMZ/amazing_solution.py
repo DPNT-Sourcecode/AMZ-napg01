@@ -1,9 +1,10 @@
+import contextlib
 import io
 from pathlib import Path
 import sys
 import threading
 
-import solutions.AMZ.amazing
+import solutions.AMZ.amazing as amazing
 
 
 class AmazingSolution:
@@ -22,7 +23,7 @@ class AmazingSolution:
                     case "WHAT ARE YOUR WIDTH AND LENGTH":
                         stdin.write(f"{columns}\n")
                         stdin.write(f"{rows}\n")
-                        stdin.close()
+                        stdin.seek(0)
                         break
                     case prompt:
                         raise Exception(f"Unknown prompt: {prompt}")
@@ -37,7 +38,7 @@ def replace_std(stdin, stdout):
     return ReplaceStd(stdin, stdout)
 
 
-class ReplaceStd:
+class ReplaceStd(contextlib.AbstractContextManager):
     def __init__(self, stdin, stdout):
         self.stdin = stdin
         self.stdout = stdout
@@ -48,8 +49,9 @@ class ReplaceStd:
         sys.stdin = self.stdin
         sys.stdout = self.stdout
 
-    def __exit__(self, _, _, _):
+    def __exit__(self, _exc_type, _exc_value, _traceback):
         sys.stdin = self._old_stdin
         sys.stdout = self._old_stdout
+
 
 
