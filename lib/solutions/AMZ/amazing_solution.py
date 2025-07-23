@@ -1,8 +1,4 @@
-import contextlib
-import io
 import os
-from pathlib import Path
-import sys
 import threading
 
 import solutions.AMZ.amazing as amazing
@@ -10,14 +6,20 @@ import solutions.AMZ.amazing as amazing
 
 class AmazingSolution:
     def amazing_maze(self, rows, columns, maze_generation_options):
+        debug = open("debug.txt", "w")
+
         stdin_r, stdin_w = os.pipe()
         stdout_r, stdout_w = os.pipe()
         app = amazing.Main(stdin = stdin_r, stdout = stdout_w)
         thread = threading.Thread(target = app.run)
         thread.start()
 
+        print("hello", file=debug)
+        debug.flush()
         with open(stdin_w, "w") as stdin, open(stdout_r, "r") as stdout:
             for line in stdout:
+                print(line, file=debug)
+                debug.flush()
                 line = line.rstrip()
                 if not line or line.startswith(" "):
                     continue
@@ -54,4 +56,5 @@ class AmazingSolution:
 #     def __exit__(self, _exc_type, _exc_value, _traceback):
 #         sys.stdin = self._old_stdin
 #         sys.stdout = self._old_stdout
+
 
