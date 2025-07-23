@@ -57,9 +57,6 @@ class Main:
         scalarZ = 0
         matrixV = []
         matrixW = []
-        loopActive1017 = False
-        loopActive1043 = False
-        loopActive1015 = False
 
         iterations = 0
 
@@ -71,11 +68,7 @@ class Main:
 
         # Labels   100–160 : Input handling and initialization
         while True:
-            iterations += 1
-            if iterations > 99999:
-                self.print_expr("INFINITE LOOP DETECTED. STOPPING EXECUTION.")
-                self.println()
-                break
+            inc_iterations()
 
             match label:
                 #10PRINTTAB(28);"AMAZINGPROGRAM"
@@ -158,12 +151,9 @@ class Main:
                             else self.round_down_to_int(self.random(1)*scalarH+1)
                     break
 
+        # Labels   165–190 : Print first row
         while True:
-            iterations += 1
-            if iterations > 99999:
-                self.print_expr("INFINITE LOOP DETECTED. STOPPING EXECUTION.")
-                self.println()
-                break
+            inc_iterations()
 
             match label:
                 #165FORI=1TOH
@@ -202,19 +192,9 @@ class Main:
                     self.println()
                     break
 
+        # Labels  195–1000 : Handle maze generation
         while True:
-            iterations += 1
-            if iterations > 99999:
-                self.print_expr("INFINITE LOOP DETECTED. STOPPING EXECUTION.")
-                self.println()
-                break
-
-            if loopActive1017 and label > 1040:
-                loopActive1017 = False;
-            if loopActive1043 and label > 1070:
-                loopActive1043 = False;
-            if loopActive1015 and label > 1072:
-                loopActive1015 = False;
+            inc_iterations()
 
             match label:
                 #195C=1:W(X,1)=C:C=C+1
@@ -700,6 +680,7 @@ class Main:
                     label = 815
                     if (scalarC == scalarH*scalarV+1):
                         label = 1010
+                        break
 
                 #815Q=0:GOTO260
                 case 815:
@@ -724,6 +705,7 @@ class Main:
                     scalarS = scalarS-1
                     if (scalarC == scalarH*scalarV+1):
                         label = 1010
+                        break
 
                 #850Q=0:GOTO260
                 case 850:
@@ -764,6 +746,7 @@ class Main:
                     label = 905
                     if (scalarC == scalarH*scalarV+1):
                         label = 1010
+                        break
 
                 #905GOTO530
                 case 905:
@@ -801,6 +784,7 @@ class Main:
                     scalarS = scalarS+1
                     if (scalarC == scalarH*scalarV+1):
                         label = 1010
+                        break
 
                 #955GOTO260
                 case 955:
@@ -836,9 +820,25 @@ class Main:
 
                 #1000GOTO210
                 case 1000:
-                    label = 1010
+                    # label = 1010  # this did nothing
                     label = 210
 
+        loopActive1017 = False
+        loopActive1043 = False
+        loopActive1015 = False
+
+        # Labels 1015–1072 : Final maze printing
+        while True:
+            inc_iterations()
+
+            if loopActive1017 and label > 1040:
+                loopActive1017 = False
+            if loopActive1043 and label > 1070:
+                loopActive1043 = False
+            if loopActive1015 and label > 1072:
+                loopActive1015 = False
+
+            match label:
                 #1010IFZ=1THEN1015
                 case 1010:
                     label = 1011
@@ -989,6 +989,7 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
 
 
 
