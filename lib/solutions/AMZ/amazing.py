@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import math
 
 class Main:
@@ -957,3 +959,4 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
