@@ -143,8 +143,8 @@ class Main:
                 #160Q=0:Z=0:X=INT(RND(1)*H+1)
                 case 160:
                     label = 165
-                    scalarQ = 0
-                    scalarZ = 0
+                    # scalarQ = 0
+                    # scalarZ = 0
                     scalarX = \
                         int(self.options["ENTRY_COLUMN"]) \
                             if self.options.get("ENTRY_COLUMN") \
@@ -943,7 +943,7 @@ class Main:
 
                 #1052GOTO1070
                 case 1052:
-                    label = 1060
+                    # label = 1060  # this did nothing
                     label = 1070
 
                 #1060PRINT":--";
@@ -982,5 +982,6 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
 
 
