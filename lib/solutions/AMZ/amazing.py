@@ -792,7 +792,7 @@ class Main:
                 #960Z=1
                 case 960:
                     label = 970
-                    scalarZ = 1
+                    # scalarZ = 1  # moved to label 980
 
                 #970IFV(R,S)=0THEN980
                 case 970:
@@ -816,6 +816,7 @@ class Main:
                             treasure = (self.as_int(scalarR), self.as_int(scalarS))
                         case "CREATE_EXIT":
                             matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 1
+                            scalarZ = 1
                     scalarQ = 0
                     scalarR = 1
                     scalarS = 1
@@ -987,6 +988,7 @@ class Main:
 
 if __name__ == "__main__":
     Main(options = os.environ).run()
+
 
 
 
