@@ -784,7 +784,7 @@ class Main:
 
                 #955GOTO260
                 case 955:
-                    label = 960
+                    # label = 960  # this did nothing
                     label = 260
 
                 #960Z=1
@@ -982,4 +982,5 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
 
