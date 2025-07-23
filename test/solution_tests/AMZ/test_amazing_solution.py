@@ -69,3 +69,15 @@ I  I  I  I  I
 I<>I        I
 :--:--:  :--.
 """.lstrip()
+
+    def test_no_chest_when_dead_end_becomes_exit(self):
+        solution = AmazingSolution()
+        generated_maze = solution.amazing_maze(2, 2, { "ENTRY_COLUMN": "2", "DEAD_END_ON_LAST_ROW_BEHAVIOUR": "CREATE_TREASURE" })
+        assert generated_maze == """
+.--.  .
+I     I
+:  :  .
+I  I  I
+:--:  .
+""".lstrip()
+
