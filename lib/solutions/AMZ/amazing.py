@@ -792,7 +792,7 @@ class Main:
                 #960Z=1
                 case 960:
                     label = 970
-                    # scalarZ = 1  # moved to label 980
+                    scalarZ = 1
 
                 #970IFV(R,S)=0THEN980
                 case 970:
@@ -816,7 +816,6 @@ class Main:
                         treasure = (self.as_int(scalarR), self.as_int(scalarS))
                     else:
                         matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 1
-                        scalarZ = 1
                     scalarQ = 0
                     scalarR = 1
                     scalarS = 1
@@ -829,7 +828,7 @@ class Main:
                 #1010IFZ=1THEN1015
                 case 1010:
                     label = 1011
-                    if (scalarZ == 1):
+                    if (scalarZ == 1 and not treasure):
                         label = 1015
                         break
 
@@ -899,7 +898,10 @@ class Main:
                 #1020PRINT"";
                 case 1020:
                     label = 1021
-                    self.print_expr("   ")
+                    if treasure == (self.as_int(scalarI), self.as_int(scalarJ)):
+                        self.print_expr("<> ")
+                    else:
+                        self.print_expr("   ")
 
                 #1021GOTO1040
                 case 1021:
@@ -909,7 +911,10 @@ class Main:
                 #1030PRINT"I";
                 case 1030:
                     label = 1040
-                    self.print_expr("  I")
+                    if treasure == (self.as_int(scalarI), self.as_int(scalarJ)):
+                        self.print_expr("<>I")
+                    else:
+                        self.print_expr("  I")
 
                 #1040NEXTI
                 case 1040:
@@ -988,6 +993,7 @@ class Main:
 
 if __name__ == "__main__":
     Main(options = os.environ).run()
+
 
 
 
