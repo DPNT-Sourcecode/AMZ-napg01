@@ -377,9 +377,9 @@ class Main:
 
                 #415Q=1:GOTO430
                 case 415:
-                    label = 420
-                    scalarQ = 1
+                    # label = 420  # this did nothing
                     label = 430
+                    scalarQ = 1
 
                 #420IFW(R,S+1)<>0THEN450
                 case 420:
@@ -429,9 +429,9 @@ class Main:
 
                 #485Q=1:GOTO500
                 case 485:
-                    label = 490
-                    scalarQ = 1
+                    # label = 490  # this did nothing
                     label = 500
+                    scalarQ = 1
 
                 #490IFW(R,S+1)<>0THEN520
                 case 490:
@@ -601,9 +601,9 @@ class Main:
 
                 #695Q=1:GOTO710
                 case 695:
-                    label = 700
-                    scalarQ = 1
+                    # label = 700  # this did nothing
                     label = 710
+                    scalarQ = 1
 
                 #700IFW(R,S+1)<>0THEN730
                 case 700:
@@ -822,14 +822,14 @@ class Main:
                 #1010IFZ=1THEN1015
                 case 1010:
                     label = 1011
-                    if (scalarZ == 1):
-                        label = 1015
-                        break
+                    # if (scalarZ == 1):
+                    #     label = 1015
+                    #     break
 
                 #1011X=INT(RND(1)*H+1)
                 case 1011:
                     label = 1012
-                    scalarX = 1 # self.round_down_to_int(self.random(1)*scalarH+1)
+                    scalarX = self.round_down_to_int(self.random(1)*scalarH+1)
 
                 #1012IFV(X,V)=0THEN1014
                 case 1012:
@@ -982,6 +982,7 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
 
 
 
