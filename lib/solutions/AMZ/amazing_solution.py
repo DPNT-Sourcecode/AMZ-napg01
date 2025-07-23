@@ -8,8 +8,12 @@ class AmazingSolution:
         self.app = dir / app
 
     def amazing_maze(self, rows, columns, maze_generation_options):
-        with subprocess.Popen(self.app, stdin = subprocess.PIPE, stdout = subprocess.PIPE) as process:
-            for line in process.stdout.readlines():
+        with subprocess.Popen(self.app, stdin = subprocess.PIPE, stdout = subprocess.PIPE, encoding = 'utf8') as process:
+            while True:
+                line = process.stdout.readline().rstrip()
+                if not line or line.startswith(' '):
+                    continue
                 return line
+
 
 
