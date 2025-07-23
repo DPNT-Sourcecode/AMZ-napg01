@@ -34,7 +34,9 @@ class Main:
         return math.floor(variable)
 
     def random(self, positive_int):
-        return 0.5
+        return float(self.options["LEGACY_RANDOM_MAGIC_NUMBER"]) \
+            if self.options.get("LEGACY_RANDOM_MAGIC_NUMBER") \
+            else 0.5
 
     def mid(self, text, starting_index, num_chars):
         return text[self.as_int(starting_index - 1):self.as_int(starting_index + num_chars - 1)]
@@ -968,3 +970,4 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
