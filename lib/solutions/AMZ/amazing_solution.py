@@ -16,25 +16,25 @@ class AmazingSolution:
             thread = threading.Thread(target = amazing.Main().run)
             thread.start()
 
-            with open(stdin_w, "w") as stdin:
-                with open(stdout_r, "r") as stdout:
-                    for line in stdout:
-                        line = line.rstrip()
-                        if not line or line.startswith(" "):
-                            continue
-                        match line:
-                            case "WHAT ARE YOUR WIDTH AND LENGTH":
-                                stdin.write(f"{columns}\n")
-                                stdin.write(f"{rows}\n")
-                                stdin.close()
-                                break
-                            case prompt:
-                                raise Exception(f"Unknown prompt: {prompt}")
+            debug = open('./debug.txt', 'w')
+            with open(stdin_w, "w") as stdin, open(stdout_r, "r") as stdout:
+                for line in stdout:
+                    line = line.rstrip()
+                    if not line or line.startswith(" "):
+                        continue
+                    match line:
+                        case "WHAT ARE YOUR WIDTH AND LENGTH":
+                            stdin.write(f"{columns}\n")
+                            stdin.write(f"{rows}\n")
+                            stdin.close()
+                            break
+                        case prompt:
+                            raise Exception(f"Unknown prompt: {prompt}")
 
-                    maze = [line for line in stdout if line.rstrip()]
+                maze = [line for line in stdout if line.rstrip()]
 
-                    thread.join()
-                    return "".join(maze)
+                thread.join()
+                return "".join(maze)
 
 
 def replace_std(stdin, stdout):
@@ -55,8 +55,3 @@ class ReplaceStd(contextlib.AbstractContextManager):
     def __exit__(self, _exc_type, _exc_value, _traceback):
         sys.stdin = self._old_stdin
         sys.stdout = self._old_stdout
-
-
-
-
-

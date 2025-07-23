@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
+import sys
 
 import math
 
 class Main:
     def __init__(self):
         self.current_line_char_count = 0
+        print(sys.stdin)
+        print(sys.stdout)
 
     def print_expr(self, expression):
         if isinstance(expression, (int, float)):
