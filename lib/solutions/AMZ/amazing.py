@@ -812,7 +812,7 @@ class Main:
                     # label = 1000  # this did nothing
                     label = 250
                     print((scalarR, scalarS), (scalarH, scalarV), file=sys.stderr)
-                    if self.as_int(scalarS) == scalarV and self.options.get("DEAD_END_ON_LAST_ROW_BEHAVIOUR") == "CREATE_TREASURE":
+                    if self.options.get("DEAD_END_ON_LAST_ROW_BEHAVIOUR") == "CREATE_TREASURE":
                         treasure = (self.as_int(scalarR), self.as_int(scalarS))
                     else:
                         matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 1
@@ -988,5 +988,6 @@ class Main:
 
 if __name__ == "__main__":
     Main(options = os.environ).run()
+
 
 
