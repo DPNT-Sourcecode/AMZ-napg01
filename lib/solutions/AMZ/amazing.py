@@ -57,6 +57,7 @@ class Main:
         scalarZ = 0
         matrixV = []
         matrixW = []
+        chest = None
 
         iterations = 0
 
@@ -841,6 +842,8 @@ class Main:
                 case 1013:
                     # label = 1014  # this did nothing
                     label = 1015
+                    if self.options.get("DEAD_END_ON_LAST_ROW_BEHAVIOUR") == "CREATE_TREASURE":
+                        chest = (self.as_int(scalarX), self.as_int(scalarV))
                     matrixV[self.as_int(scalarX)][self.as_int(scalarV)] = 3
                     break
 
@@ -981,5 +984,6 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
 
 

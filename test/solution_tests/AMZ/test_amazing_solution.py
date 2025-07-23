@@ -56,3 +56,17 @@ I                                         I
 I                                         I
 :  :--:--:--:--:--:--:--:--:--:--:--:--:--.
 """.lstrip()
+
+    def test_chest_at_dead_end(self):
+        solution = AmazingSolution()
+        generated_maze = solution.amazing_maze(3, 4, { "ENTRY_COLUMN": "1", "DEAD_END_ON_LAST_ROW_BEHAVIOUR": "CREATE_TREASURE" })
+        assert generated_maze == """
+.  .--.--.--.
+I     I     I
+:  :  :  :  .
+I  I  I  I  I
+:  :  :--:  .
+I<>I        I
+:--:--:  :--.
+""".lstrip()
+
