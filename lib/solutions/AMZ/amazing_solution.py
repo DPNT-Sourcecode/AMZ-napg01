@@ -19,6 +19,9 @@ class AmazingSolution:
             app = amazing.Main(stdin = stdin_r, stdout = stdout_w)
             thread = threading.Thread(target = app.run)
             thread.start()
+            thread.join(timeout=0.1)  # fail fast if it crashes
+            if not thread.is_alive():
+                raise Exception("App crashed.")
 
             for line in stdout_r:
                 print(line, file=debug)
@@ -59,6 +62,7 @@ class AmazingSolution:
 #     def __exit__(self, _exc_type, _exc_value, _traceback):
 #         sys.stdin = self._old_stdin
 #         sys.stdout = self._old_stdout
+
 
 
 
