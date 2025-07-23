@@ -680,7 +680,6 @@ class Main:
                     label = 815
                     if (scalarC == scalarH*scalarV+1):
                         label = 1010
-                        break
 
                 #815Q=0:GOTO260
                 case 815:
@@ -705,7 +704,6 @@ class Main:
                     scalarS = scalarS-1
                     if (scalarC == scalarH*scalarV+1):
                         label = 1010
-                        break
 
                 #850Q=0:GOTO260
                 case 850:
@@ -746,7 +744,6 @@ class Main:
                     label = 905
                     if (scalarC == scalarH*scalarV+1):
                         label = 1010
-                        break
 
                 #905GOTO530
                 case 905:
@@ -784,7 +781,6 @@ class Main:
                     scalarS = scalarS+1
                     if (scalarC == scalarH*scalarV+1):
                         label = 1010
-                        break
 
                 #955GOTO260
                 case 955:
@@ -823,24 +819,12 @@ class Main:
                     # label = 1010  # this did nothing
                     label = 210
 
-        loopActive1017 = False
-        loopActive1043 = False
-
-        # Labels 1015–1072 : Final maze printing
-        while True:
-            inc_iterations()
-
-            if loopActive1017 and label > 1040:
-                loopActive1017 = False
-            if loopActive1043 and label > 1070:
-                loopActive1043 = False
-
-            match label:
                 #1010IFZ=1THEN1015
                 case 1010:
                     label = 1011
                     if (scalarZ == 1):
                         label = 1015
+                        break
 
                 #1011X=INT(RND(1)*H+1)
                 case 1011:
@@ -855,15 +839,30 @@ class Main:
 
                 #1013V(X,V)=3:GOTO1015
                 case 1013:
-                    label = 1014
+                    # label = 1014  # this did nothing
                     matrixV[self.as_int(scalarX)][self.as_int(scalarV)] = 3
                     label = 1015
+                    break
 
                 #1014V(X,V)=1
                 case 1014:
                     label = 1015
                     matrixV[self.as_int(scalarX)][self.as_int(scalarV)] = 1
+                    break
 
+        loopActive1017 = False
+        loopActive1043 = False
+
+        # Labels 1015–1072 : Final maze printing
+        while True:
+            inc_iterations()
+
+            if loopActive1017 and label > 1040:
+                loopActive1017 = False
+            if loopActive1043 and label > 1070:
+                loopActive1043 = False
+
+            match label:
                 #1015FORJ=1TOV
                 case 1015:
                     label = 1016
@@ -983,3 +982,4 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
