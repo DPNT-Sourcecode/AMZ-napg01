@@ -15,10 +15,12 @@ class Main:
         else:
             text = expression
         print(text, end='', file=self.stdout)
+        self.stdout.flush()
         self.current_line_char_count += len(text)
 
     def println(self):
         print(file=self.stdout)
+        self.stdout.flush()
         self.current_line_char_count = 0
 
     def tab(self, num_spaces):
@@ -962,4 +964,5 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
 

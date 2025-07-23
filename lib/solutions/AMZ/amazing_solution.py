@@ -1,3 +1,4 @@
+import itertools
 import os
 import threading
 
@@ -38,7 +39,12 @@ class AmazingSolution:
                     case prompt:
                         raise Exception(f"Unknown prompt: {prompt}")
 
-            maze = [line for line in stdout_r if line.rstrip()]
+            maze = list(
+                    itertools.takewhile(
+                    lambda x: x,
+                    itertools.dropwhile(
+                        lambda x: not x,
+                        (line for line in stdout_r if line.rstrip()))))
 
             thread.join()
             return "".join(maze)
@@ -62,6 +68,7 @@ class AmazingSolution:
 #     def __exit__(self, _exc_type, _exc_value, _traceback):
 #         sys.stdin = self._old_stdin
 #         sys.stdout = self._old_stdout
+
 
 
 
