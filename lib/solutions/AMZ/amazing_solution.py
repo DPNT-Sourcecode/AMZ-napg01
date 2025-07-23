@@ -14,18 +14,24 @@ class AmazingSolution:
             stdout = subprocess.PIPE,
             encoding = "utf8",
         ) as process:
-            for line in process.stdout:
+            stdin = process.stdin
+            stdout = process.stdout
+            if not stdin or not stdout:
+                raise Exception("Could not open STDIN or STDOUT.")
+
+            for line in stdout:
                 line = line.rstrip()
                 if not line or line.startswith(' '):
                     continue
                 match line:
                     case "WHAT ARE YOUR WIDTH AND LENGTH":
-                        process.stdin.write(f"{columns}\n")
-                        process.stdin.write(f"{rows}\n")
-                        process.stdin.close()
+                        stdin.write(f"{columns}\n")
+                        stdin.write(f"{rows}\n")
+                        stdin.close()
                         break
                     case prompt:
                         raise Exception(f"Unknown prompt: {prompt}")
 
-            maze = [line for line in process.stdout if line.rstrip()]
+            maze = [line for line in stdout if line.rstrip()]
             return "".join(maze)
+
