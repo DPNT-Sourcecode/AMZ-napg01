@@ -18,3 +18,9 @@ I  I  I     I     I  I
 I  I     I        I  I
 :--:--:--:--:--:--:  .
 """.lstrip()
+
+    def test_entry_column(self):
+        solution = AmazingSolution()
+        generated_maze = solution.amazing_maze(6, 9, { "ENTRY_COLUMN": "1" })
+        assert generated_maze.split("\n")[0] == ".  .--.--.--.--.--.--.--.--."
+
