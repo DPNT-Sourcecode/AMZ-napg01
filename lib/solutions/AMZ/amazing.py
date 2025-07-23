@@ -814,6 +814,7 @@ class Main:
                     match self.options.get("DEAD_END_ON_LAST_ROW_BEHAVIOUR", "CREATE_EXIT"):
                         case "CREATE_TREASURE":
                             treasure = (self.as_int(scalarR), self.as_int(scalarS))
+                            print(treasure, file=sys.stderr)
                         case "CREATE_EXIT":
                             matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 1
                             scalarZ = 1
@@ -988,10 +989,3 @@ class Main:
 
 if __name__ == "__main__":
     Main(options = os.environ).run()
-
-
-
-
-
-
-
