@@ -800,19 +800,19 @@ class Main:
 
                 #975V(R,S)=3:Q=0:GOTO1000
                 case 975:
-                    label = 980
+                    # label = 980  # this did nothing
+                    label = 1000
                     matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 3
                     scalarQ = 0
-                    label = 1000
 
                 #980V(R,S)=1:Q=0:R=1:S=1:GOTO250
                 case 980:
-                    label = 1000
+                    # label = 1000  # this did nothing
+                    label = 250
                     matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 1
                     scalarQ = 0
                     scalarR = 1
                     scalarS = 1
-                    label = 250
 
                 #1000GOTO210
                 case 1000:
@@ -840,8 +840,8 @@ class Main:
                 #1013V(X,V)=3:GOTO1015
                 case 1013:
                     # label = 1014  # this did nothing
-                    matrixV[self.as_int(scalarX)][self.as_int(scalarV)] = 3
                     label = 1015
+                    matrixV[self.as_int(scalarX)][self.as_int(scalarV)] = 3
                     break
 
                 #1014V(X,V)=1
@@ -982,6 +982,7 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
 
 
 
