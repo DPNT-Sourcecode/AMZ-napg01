@@ -48,7 +48,7 @@ class Main:
         scalarC = 0
         scalarH = 0
         scalarI = 1
-        scalarJ = 0
+        scalarJ = 1
         scalarQ = 0
         scalarR = 0
         scalarS = 0
@@ -825,7 +825,6 @@ class Main:
 
         loopActive1017 = False
         loopActive1043 = False
-        loopActive1015 = False
 
         # Labels 1015–1072 : Final maze printing
         while True:
@@ -835,8 +834,6 @@ class Main:
                 loopActive1017 = False
             if loopActive1043 and label > 1070:
                 loopActive1043 = False
-            if loopActive1015 and label > 1072:
-                loopActive1015 = False
 
             match label:
                 #1010IFZ=1THEN1015
@@ -870,9 +867,6 @@ class Main:
                 #1015FORJ=1TOV
                 case 1015:
                     label = 1016
-                    if loopActive1015 == False:
-                        scalarJ = 1
-                        loopActive1015 = True
                     if (scalarJ - scalarV) * 1 > 0:
                         label = 1073
 
@@ -989,8 +983,3 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
-
-
-
-
-
