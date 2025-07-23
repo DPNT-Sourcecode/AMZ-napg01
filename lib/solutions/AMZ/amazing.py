@@ -58,7 +58,7 @@ class Main:
         scalarZ = 0
         matrixV = []
         matrixW = []
-        chest = None
+        treasure = None
 
         iterations = 0
 
@@ -804,14 +804,18 @@ class Main:
                 case 975:
                     # label = 980  # this did nothing
                     label = 1000
-                    # matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 3
+                    matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 3
                     scalarQ = 0
 
                 #980V(R,S)=1:Q=0:R=1:S=1:GOTO250
                 case 980:
                     # label = 1000  # this did nothing
                     label = 250
-                    matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 1
+                    match self.options.get("DEAD_END_ON_LAST_ROW_BEHAVIOUR", "CREATE_EXIT"):
+                        case "CREATE_TREASURE":
+                            treasure = (self.as_int(scalarR), self.as_int(scalarS))
+                        case "CREATE_EXIT":
+                            matrixV[self.as_int(scalarR)][self.as_int(scalarS)] = 1
                     scalarQ = 0
                     scalarR = 1
                     scalarS = 1
@@ -843,11 +847,7 @@ class Main:
                 case 1013:
                     # label = 1014  # this did nothing
                     label = 1015
-                    match self.options.get("DEAD_END_ON_LAST_ROW_BEHAVIOUR", "CREATE_EXIT"):
-                        case "CREATE_TREASURE":
-                            chest = (self.as_int(scalarX), self.as_int(scalarV))
-                        case "CREATE_EXIT":
-                            matrixV[self.as_int(scalarX)][self.as_int(scalarV)] = 3
+                    matrixV[self.as_int(scalarX)][self.as_int(scalarV)] = 3
                     break
 
                 #1014V(X,V)=1
@@ -987,6 +987,7 @@ class Main:
 
 if __name__ == "__main__":
     Main(options = os.environ).run()
+
 
 
 
