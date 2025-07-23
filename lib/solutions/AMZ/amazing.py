@@ -47,7 +47,7 @@ class Main:
 
         scalarC = 0
         scalarH = 0
-        scalarI = 0
+        scalarI = 1
         scalarJ = 0
         scalarQ = 0
         scalarR = 0
@@ -57,12 +57,17 @@ class Main:
         scalarZ = 0
         matrixV = []
         matrixW = []
-        loopActive165 = False
         loopActive1017 = False
         loopActive1043 = False
         loopActive1015 = False
 
         iterations = 0
+
+        def inc_iterations():
+            nonlocal iterations
+            iterations += 1
+            if iterations > 99999:
+                raise Exception("INFINITE LOOP DETECTED. STOPPING EXECUTION.")
 
         # Labels   100–160 : Input handling and initialization
         while True:
@@ -71,13 +76,6 @@ class Main:
                 self.print_expr("INFINITE LOOP DETECTED. STOPPING EXECUTION.")
                 self.println()
                 break
-
-            if loopActive1017 and label > 1040:
-                loopActive1017 = False;
-            if loopActive1043 and label > 1070:
-                loopActive1043 = False;
-            if loopActive1015 and label > 1072:
-                loopActive1015 = False;
 
             match label:
                 #10PRINTTAB(28);"AMAZINGPROGRAM"
@@ -167,20 +165,10 @@ class Main:
                 self.println()
                 break
 
-            if loopActive1017 and label > 1040:
-                loopActive1017 = False;
-            if loopActive1043 and label > 1070:
-                loopActive1043 = False;
-            if loopActive1015 and label > 1072:
-                loopActive1015 = False;
-
             match label:
                 #165FORI=1TOH
                 case 165:
                     label = 170
-                    if loopActive165 == False:
-                        scalarI = 1
-                        loopActive165 = True
                     if (scalarI - scalarH) * 1 > 0:
                         label = 190
 
@@ -212,7 +200,23 @@ class Main:
                     label = 195
                     self.print_expr(".")
                     self.println()
+                    break
 
+        while True:
+            iterations += 1
+            if iterations > 99999:
+                self.print_expr("INFINITE LOOP DETECTED. STOPPING EXECUTION.")
+                self.println()
+                break
+
+            if loopActive1017 and label > 1040:
+                loopActive1017 = False;
+            if loopActive1043 and label > 1070:
+                loopActive1043 = False;
+            if loopActive1015 and label > 1072:
+                loopActive1015 = False;
+
+            match label:
                 #195C=1:W(X,1)=C:C=C+1
                 case 195:
                     label = 200
@@ -985,6 +989,7 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
 
 
 
