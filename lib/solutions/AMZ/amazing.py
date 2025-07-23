@@ -64,6 +64,7 @@ class Main:
 
         iterations = 0
 
+        # Labels   100–160 : Input handling and initialization
         while True:
             iterations += 1
             if iterations > 99999:
@@ -71,8 +72,6 @@ class Main:
                 self.println()
                 break
 
-            if loopActive165 and label > 180:
-                loopActive165 = False;
             if loopActive1017 and label > 1040:
                 loopActive1017 = False;
             if loopActive1043 and label > 1070:
@@ -159,7 +158,23 @@ class Main:
                         int(self.options["ENTRY_COLUMN"]) \
                             if self.options.get("ENTRY_COLUMN") \
                             else self.round_down_to_int(self.random(1)*scalarH+1)
+                    break
 
+        while True:
+            iterations += 1
+            if iterations > 99999:
+                self.print_expr("INFINITE LOOP DETECTED. STOPPING EXECUTION.")
+                self.println()
+                break
+
+            if loopActive1017 and label > 1040:
+                loopActive1017 = False;
+            if loopActive1043 and label > 1070:
+                loopActive1043 = False;
+            if loopActive1015 and label > 1072:
+                loopActive1015 = False;
+
+            match label:
                 #165FORI=1TOH
                 case 165:
                     label = 170
@@ -970,5 +985,6 @@ class Main:
 
 if __name__ == "__main__":
     Main().run()
+
 
 
